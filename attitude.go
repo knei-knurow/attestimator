@@ -3,7 +3,7 @@ package attestimator
 import "math"
 
 // SetAttitude sets the current attitude estimate.
-func (e *AttitudeEstimator) SetAttitude(w, x, y, z float64) {
+func (e *Estimator) SetAttitude(w, x, y, z float64) {
 	qscale := w*w + x*x + y*y + z*z // calculate the quaternion square norm
 
 	// update the current attitude estimate
@@ -27,7 +27,7 @@ func (e *AttitudeEstimator) SetAttitude(w, x, y, z float64) {
 }
 
 // SetAttitudeEuler sets the current attitude estimate to a particular set of ZYX Euler angles.
-func (e *AttitudeEstimator) SetAttitudeEuler(yaw, pitch, roll float64) {
+func (e *Estimator) SetAttitudeEuler(yaw, pitch, roll float64) {
 	// halve the yaw, pitch and roll values (for calculation purposes only)
 	yaw *= 0.5
 	pitch *= 0.5
@@ -57,7 +57,7 @@ func (e *AttitudeEstimator) SetAttitudeEuler(yaw, pitch, roll float64) {
 	e.SetAttitude(w, x, y, z)
 }
 
-func (e *AttitudeEstimator) SetAttitudeFused(yaw, pitch, roll float64, hemi bool) {
+func (e *Estimator) SetAttitudeFused(yaw, pitch, roll float64, hemi bool) {
 	// precalculate the sin values
 	var (
 		sth  = math.Sin(pitch)
@@ -103,7 +103,7 @@ func (e *AttitudeEstimator) SetAttitudeFused(yaw, pitch, roll float64, hemi bool
 	e.SetAttitude(chalpha*chpsi, shalpha*chgampsi, shalpha*shgampsi, chalpha*shpsi)
 }
 
-func (e *AttitudeEstimator) updateEuler() {
+func (e *Estimator) updateEuler() {
 	// These calculations rely on the assumption that m_Qhat is a unit quaternion!
 	//
 	// The output ranges are:
@@ -132,7 +132,7 @@ func (e *AttitudeEstimator) updateEuler() {
 	e.m_eulerValid = true
 }
 
-func (e *AttitudeEstimator) updateFused() {
+func (e *Estimator) updateFused() {
 	// These calculations rely on the assumption that m_Qhat is a unit quaternion!
 	//
 	// The output ranges are:

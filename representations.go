@@ -1,7 +1,7 @@
 package attestimator
 
 // EulerYaw returns the ZYX Euler yaw of the current attitude estimate (1st of the three ZYX Euler angles).
-func (e *AttitudeEstimator) EulerYaw() float64 {
+func (e *Estimator) EulerYaw() float64 {
 	if !e.m_eulerValid {
 		e.updateEuler()
 	}
@@ -9,7 +9,7 @@ func (e *AttitudeEstimator) EulerYaw() float64 {
 }
 
 // EulerPitch returns the ZYX Euler pitch of the current attitude estimate (2nd of the three ZYX Euler angles).
-func (e *AttitudeEstimator) EulerPitch() float64 {
+func (e *Estimator) EulerPitch() float64 {
 	if !e.m_eulerValid {
 		e.updateEuler()
 	}
@@ -17,7 +17,7 @@ func (e *AttitudeEstimator) EulerPitch() float64 {
 }
 
 // EulerRoll returns the ZYX Euler roll of the current attitude estimate (3rd of the three ZYX Euler angles).
-func (e *AttitudeEstimator) EulerRoll() float64 {
+func (e *Estimator) EulerRoll() float64 {
 	if !e.m_eulerValid {
 		e.updateEuler()
 	}
@@ -25,7 +25,7 @@ func (e *AttitudeEstimator) EulerRoll() float64 {
 }
 
 // FusedYaw returns the fused yaw of the current attitude estimate (1st of the fused angles).
-func (e *AttitudeEstimator) FusedYaw() float64 {
+func (e *Estimator) FusedYaw() float64 {
 	if !e.m_fusedValid {
 		e.updateFused()
 	}
@@ -33,7 +33,7 @@ func (e *AttitudeEstimator) FusedYaw() float64 {
 }
 
 // FusedPitch returns the fused pitch of the current attitude estimate (2nd of the fused angles).
-func (e *AttitudeEstimator) FusedPitch() float64 {
+func (e *Estimator) FusedPitch() float64 {
 	if !e.m_fusedValid {
 		e.updateFused()
 	}
@@ -41,7 +41,7 @@ func (e *AttitudeEstimator) FusedPitch() float64 {
 }
 
 // FusedRoll returns the fused roll of the current attitude estimate (3rd of the fused angles).
-func (e *AttitudeEstimator) FusedRoll() float64 {
+func (e *Estimator) FusedRoll() float64 {
 	if !e.m_fusedValid {
 		e.updateFused()
 	}
@@ -51,7 +51,7 @@ func (e *AttitudeEstimator) FusedRoll() float64 {
 // FusedHemi returns the hemisphere of the current attitude estimate
 // (boolean 4th parameter of the fused angles representation, where `true`
 // implies `1` and `false` implies `-1`).
-func (e *AttitudeEstimator) FusedHemi() bool {
+func (e *Estimator) FusedHemi() bool {
 	if !e.m_fusedValid {
 		e.updateFused()
 	}
