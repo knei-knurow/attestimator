@@ -1,7 +1,10 @@
 package attestimator
 
+// Reset resets the entire class, except for the magnetometer calibration,
+// the acc-only resolution method, and the configuration variables
+// (i.e. the PI gains and the quick learn time).
 func (e *AttitudeEstimator) Reset(quickLearn bool, resetGyroBias bool) {
-	e.resetState(resetGyroBias)
+	e.ResetState(resetGyroBias)
 
 	if quickLearn {
 		e.SetLambda(0) // reset lambda
@@ -10,6 +13,7 @@ func (e *AttitudeEstimator) Reset(quickLearn bool, resetGyroBias bool) {
 	}
 }
 
+// ResetAll resets the entire class, including all variables not reset by the `reset()` function.
 func (e *AttitudeEstimator) ResetAll(quickLearn bool) {
 	// Initialise the acc-only resolution method
 	e.SetAccMethod(MethodDefault)
@@ -25,7 +29,8 @@ func (e *AttitudeEstimator) ResetAll(quickLearn bool) {
 	e.Reset(true, true)
 }
 
-func (e *AttitudeEstimator) resetState(resetGyroBias bool) {
+// ResetState is equivalent to Reset(), but also leaves the lambda value untouched.
+func (e *AttitudeEstimator) ResetState(resetGyroBias bool) {
 	var i int
 
 	// Initialise the attitude estimate
@@ -68,6 +73,11 @@ func (e *AttitudeEstimator) resetState(resetGyroBias bool) {
 	e.m_Ry[8] = 1
 }
 
+// AccMethod returns the currently selected acc-only measurement resolution method.
+func (e *AttitudeEstimator) AccMethod() AccMethod {
+	return e.accMethod
+}
+
 // SetAccMethod sets the acc-only measurement resolution method to use.
 func (e *AttitudeEstimator) SetAccMethod(method AccMethod) {
 	if method < MethodDefault || method >= MethodCount {
@@ -77,6 +87,8 @@ func (e *AttitudeEstimator) SetAccMethod(method AccMethod) {
 	}
 }
 
+// PIGains returns the current attitude estimator PI gains. Refer to `getLambda()` for
+// more information on the PI gains.
 func (e *AttitudeEstimator) PIGains() (Kp, Ti, KpQuick, TiQuick float64) {
 	return e.m_Kp, e.m_Ti, e.m_KpQuick, e.m_TiQuick
 }
@@ -102,7 +114,9 @@ func (e *AttitudeEstimator) SetPIGains(Kp, Ti, KpQuick, TiQuick float64) {
 // QLTime Returns the current quick learning time. A rate at which to
 // auto-increment lambda is calculated so that quick learning fades over into
 // standard operation in exactly `QLTime` seconds.
-func (e *AttitudeEstimator) QLTime() float64 { return e.m_QLTime }
+func (e *AttitudeEstimator) QLTime() float64 {
+	return e.m_QLTime
+}
 
 // SetQLTime sets the quick learning time to use.
 //

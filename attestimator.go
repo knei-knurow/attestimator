@@ -5,7 +5,7 @@ import "math"
 
 const (
 	// If an acc measurement has norm-squared less than this, then it is considered to be faulty and the measurement is discarded.
-	AccToleranceSquared = 1e-12 * 1e-12 //
+	AccToleranceSquared = 1e-12 * 1e-12
 
 	// If an acc-only generated quaternion `Qy` has norm-squared less than this, then the quaternion is considered to be zero and a fallback solution is used.
 	QyNormToleranceSquared = 1e-12 * 1e-12
