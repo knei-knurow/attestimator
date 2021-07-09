@@ -47,3 +47,13 @@ func (e *AttitudeEstimator) FusedRoll() float64 {
 	}
 	return e.m_Fhat[2]
 }
+
+// FusedHemi returns the hemisphere of the current attitude estimate
+// (boolean 4th parameter of the fused angles representation, where `true`
+// implies `1` and `false` implies `-1`).
+func (e *AttitudeEstimator) FusedHemi() bool {
+	if !e.m_fusedValid {
+		e.updateFused()
+	}
+	return e.m_FhatHemi
+}
