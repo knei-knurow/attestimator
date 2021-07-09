@@ -48,13 +48,17 @@ const (
 //
 // The inputs to the estimator should respect the following guidelines:
 //
-// - The gyroscope data must be in (rad/s), and should express the measured angular velocity in body-fixed coordinates. If only 2-axis
+// Gyroscope
+//
+// The gyroscope data must be in (rad/s), and should express the measured angular velocity in body-fixed coordinates. If only 2-axis
 // gyro data is available, then the missing component should simply be set to zero. The attitude estimator in this case will do the best
 // it can to still estimate the full 3D orientation, but you can expect effective loss of rotational information around one axis.
 // This can manifest itself in various ways in the output, and it must be decided on a per-situation basis how to best manage the
 // resulting information loss, so as to minimise resulting performance reduction.
 //
-// - The accelerometer data can be in any self-consistent units, preferably (ms), and should express the measured
+// Accelerometer
+//
+// The accelerometer data can be in any self-consistent units, preferably (ms), and should express the measured
 // inertial acceleration in body-fixed coordinates. This is a **very important point** to note, or you may
 // end up giving data of the wrong sign convention to the filter! The convention of supplying an inertial acceleration means specifically
 // that if gravity is measured to be in one direction, then the supplied accelerometer value should be in exactly the opposite direction.
@@ -64,7 +68,9 @@ const (
 // 2-axis accelerometer data is available, then you may calculate a third component that makes the total magnitude of the acceleration
 // vector equal to what you expect from gravity. In this case the units and quantitative correctness of the accelerometer values are important.
 //
-// - The magnetometer data can be in any self-consistent units, preferably `gauss` (`Ga`), and should express the measured magnetic field
+// Magnetometer
+//
+// The magnetometer data can be in any self-consistent units, preferably `gauss` (`Ga`), and should express the measured magnetic field
 // strength in body-fixed coordinates. If the body is rotated in-place in its environment, then ideally the magnetometer data should stay
 // within a sphere of some radius that corresponds to the overall magnetic field strength. This data quality may be achieved using hard
 // and/or soft iron calibrations, as required. If no magnetometer is present in the system, then just pass zero for each component. The
@@ -76,7 +82,9 @@ const (
 // transform this into a synthesised 3D magnetometer value, based on the current orientation estimate. This is a slightly more involved
 // calculation however, and is beyond the scope of this discussion.
 //
-// - The time increment (dt) passed to the `update()` function in each step must be expressed in seconds. It is recommended that you
+// Time increment
+//
+// The time increment (dt) passed to the `update()` function in each step must be expressed in seconds. It is recommended that you
 // measure the time between the successive calls to the `update()` function using a high resolution timer, and calculate the dt value from
 // this, making sure that you coerce the value of dt to a suitable range. The coercion is important to avoid the error
 // inducing effects of having abnormally large and/or small dt values passing through the estimator. For example, if the nominal call rate of
