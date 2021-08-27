@@ -2,6 +2,11 @@ package attestimator
 
 import "math"
 
+// GetAttitude gets the current attitude estimate.
+func (e *Estimator) GetAttitude() (w, x, y, z float64) {
+	return e.m_Qhat[0], e.m_Qhat[1], e.m_Qhat[2], e.m_Qhat[3]
+}
+
 // SetAttitude sets the current attitude estimate.
 func (e *Estimator) SetAttitude(w, x, y, z float64) {
 	qscale := w*w + x*x + y*y + z*z // calculate the quaternion square norm
